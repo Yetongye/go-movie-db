@@ -8,14 +8,14 @@ func main() {
 	db := InitDB("movies.db")
 	defer db.Close()
 
-	//CreateTables(db)
+	CreateTables(db)
 
-	//ImportMovies(db, "data/IMDB-movies.csv")
-	//ImportGenres(db, "data/IMDB-movies_genres.csv")
-	//ImportActors(db, "data/IMDB-actors.csv")
-	//ImportRoles(db, "data/IMDB-roles.csv")
-	//ImportDirectors(db, "data/IMDB-directors.csv")
-	//ImportDirectorGenres(db, "data/IMDB-directors_genres.csv")
+	ImportMovies(db, "data/IMDB-movies.csv")
+	ImportGenres(db, "data/IMDB-movies_genres.csv")
+	ImportActors(db, "data/IMDB-actors.csv")
+	ImportRoles(db, "data/IMDB-roles.csv")
+	ImportDirectors(db, "data/IMDB-directors.csv")
+	ImportDirectorGenres(db, "data/IMDB-directors_genres.csv")
 
 	QueryTopGenres(db)
 	QueryTopActors(db)
