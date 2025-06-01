@@ -35,6 +35,23 @@ This project implements a personal movie database application using the Go progr
 
 ## **How to Test and Use the Application**
 
+Due to GitHub's file size restrictions, the file **data/IMDB-roles.csv** is not included in this repository, and the roles table in the SQLite database (movies.db) is not pre-populated.
+If you wish to use the features related to actor roles, such as querying the most active actors, you will need to:
+
+Download the IMDB-roles.csv file (available in the Northwestern University IMDb archive: https://arch.library.northwestern.edu/concern/datasets/3484zh40n)
+
+Place the file in the data/ directory of this project:
+
+```bash 
+data/IMDB-roles.csv
+```
+Rebuild or re-run the application so that the data is imported into the database:
+
+```bash 
+go run *.go
+```
+Once the roles data is loaded, features such as `QueryTopActors()` will function correctly.
+
 ### Run the application:
 
 This repository already includes pre-built executables:
@@ -83,60 +100,70 @@ go test -v
 
 This movie application supports the following key features:
 
-1. **Full Data Import from IMDb Archive** &#x20;
+1. **Full Data Import from IMDb Archive** 
 
    The program loads six large datasets into a local SQLite database, covering movies, genres, actors, roles, directors, and director genre preferences.
-2. **Relational Schema Construction** &#x20;
+2. **Relational Schema Construction** 
 
    All tables are defined in SQLite with appropriate foreign key relationships, like:
    - Movies to genres (many-to-many)
    - Actors to roles (many-to-many)
    - Directors to genres (many-to-many)
-3. **SQL Query Capabilities** &#x20;
+3. **SQL Query Capabilities**
 
    The application provides analytical queries including:
+
    - Top genres by average movie rating
     ```go
     QueryTopGenres(db)
     ```
-    <img src="image/topgenres.png" alt="image1" width="400"/>
+
+   <img src="image/topgenres.png" alt="image1" width="400"/>
+
    - Top actors by number of roles
    ```go
     QueryTopActors(db)
     ```
-    <img src="image/topactors.png" alt="image2" width="400"/>
+
+   <img src="image/topactors.png" alt="image2" width="400"/>
+   
    - Directors with the most genre preferences
    ```go
     QueryDirectorPreferences(db)
     ```
+
     <img src="image/directorgenre.png" alt="image3" width="400"/>
+
    - Highest-rated movies within a selected genre
    ```go
     QueryTopMoviesByGenre(db, "Family")
     ```
-    <img src="image/topmovies.png" alt="image4" width="400"/>
-4. **Movie Search Functionality**
+   <img src="image/topmovies.png" alt="image4" width="400"/>
+5. **Movie Search Functionality**
 
    Users can enter keywords to search for movies by title and view corresponding IDs and years.
+
    <img src="image/serach.png" alt="image5" width="400"/>
 
    **In future versions**, the search feature will be enhanced to not only return basic movie metadata, but also display **all associated personal reviews and comments** stored in the`my_collection`table. This will allow users to immediately see:
    - Whether they have already rated or stored the movie
    - What notes or impressions they previously left
    - How their own evaluation compares with public IMDb ratings
-5. **Personal Movie Collection Management** &#x20;
+6. **Personal Movie Collection Management** 
 
    A custom table`my_collection`allows users to:
+
    <img src="image/personalcollections.png" alt="image6" width="400"/>
+   
    - Add a movie by ID to their personal library
    - Specify where the movie is stored
    - Assign a personal rating
    - Write a brief note
    
-6. **Interactive CLI Interface** &#x20;
+7. **Interactive CLI Interface**
 
    The application prompts the user to enter inputs directly in the terminal, and validates them (e.g., checks if rating is within 0–10 range).
-7. **Unit Testing Support** &#x20;
+8. **Unit Testing Support** 
 
    Critical functions (database insertions) can be tested via Go’s built-in testing framework. The application is designed to be modular and testable.
 
